@@ -88,6 +88,7 @@ class Paths
 	inline static public function voices(song:String, preLoad:Bool = false)
 	{
 		if (Main.shaggyVoice || preLoad) return 'songs:assets/songs/${song.toLowerCase()}/VoicesShaggy.$SOUND_EXT';
+		if (Main.susVoice || preLoad) return 'songs:assets/songs/${song.toLowerCase()}/VoicesSUS.$SOUND_EXT';
 		return 'songs:assets/songs/${song.toLowerCase()}/Voices.$SOUND_EXT';
 	}
 

@@ -650,8 +650,13 @@ class PlayState extends MusicBeatState
 		{
 			Main.shaggyVoice = true;
 		}
+		if (dad.curCharacter == 'amogus' && SONG.song.toLowerCase() != "cheating")
+		{
+			Main.susVoice = true;
+		}
 		else 
 			Main.shaggyVoice = false;
+			Main.susVoice = false;
 
 		generateSong(SONG.song);
 
