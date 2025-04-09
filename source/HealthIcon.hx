@@ -67,6 +67,8 @@ class HealthIcon extends FlxSprite
 		animation.add('what-lmao', [18, 19], 0, false, isPlayer);
 
 		animation.add('shaggy', [42, 43], 0, false, isPlayer);
+		
+		animation.add('amongus', [44, 45], 0, false, isPlayer);
 		animation.play(char);
 		if (noAaChars.contains(char))
 		{
