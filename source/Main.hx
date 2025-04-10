@@ -7,8 +7,8 @@ import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
-import vlc.MP4Handler
-import vlc.*
+import vlc.MP4Handler;
+import vlc.*;
 
 class Main extends Sprite
 {
