@@ -7,6 +7,8 @@ import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
+import vlc.MP4Handler
+import vlc.*
 
 class Main extends Sprite
 {
@@ -78,7 +80,7 @@ addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, frame
 var ourSource:String = "assets/videos/DO NOT DELETE OR GAME WILL CRASH/dontDelete.webm";
 
 var str1:String = "HTML CRAP";
-var vHandler = new VideoHandler();
+var vHandler = new MP4Handler();
 vHandler.init1();
 vHandler.video.name = str1;
 addChild(vHandler.video);
