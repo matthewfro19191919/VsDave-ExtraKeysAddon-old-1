@@ -1,10 +1,12 @@
 package;
 
 import openfl.Lib;
+import vlc.MP4Handler
+import vlc.*
 
 class GlobalVideo
 {
-	private static var video:VideoHandler;
+	private static var video:MP4Handler;
 	public static var isAndroid:Bool = false;
 	public static var daAlpha1:Float = 0.2;
 	public static var daAlpha2:Float = 1;
