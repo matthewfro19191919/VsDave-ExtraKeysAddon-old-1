@@ -47,11 +47,6 @@ class VideoState extends MusicBeatState
 		FlxG.autoPause = false;
 		doShit = false;
 		
-		if (GlobalVideo.isWebm)
-		{
-		videoFrames = Std.parseInt(Assets.getText(leSource.replace(".webm", ".txt")));
-		}
-		
 		fuckingVolume = FlxG.sound.music.volume;
 		FlxG.sound.music.volume = 0;
 		var isHTML:Bool = false;
@@ -67,29 +62,8 @@ class VideoState extends MusicBeatState
 		txt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		txt.screenCenter();
 		add(txt);
-
-		if (GlobalVideo.isWebm)
-		{
-			if (Assets.exists(leSource.replace(".webm", ".ogg"), MUSIC) || Assets.exists(leSource.replace(".webm", ".ogg"), SOUND))
-			{
-				useSound = true;
-				vidSound = FlxG.sound.play(leSource.replace(".webm", ".ogg"));
-			}
-		}
-
-		GlobalVideo.get().source(leSource);
-		GlobalVideo.get().clearPause();
-		if (GlobalVideo.isWebm)
-		{
-			GlobalVideo.get().updatePlayer();
-		}
-		GlobalVideo.get().show();
-		if (GlobalVideo.isWebm)
-		{
-			GlobalVideo.get().restart();
-		} else {
-			GlobalVideo.get().play();
-		}
+			
+		GlobalVideo.get().play();
 		
 		/*if (useSound)
 		{*/
@@ -116,8 +90,8 @@ class VideoState extends MusicBeatState
 		
 		if (useSound)
 		{
-			var wasFuckingHit = GlobalVideo.get().webm.wasHitOnce;
-			soundMultiplier = GlobalVideo.get().webm.renderedCount / videoFrames;
+			var wasFuckingHit = null;
+			soundMultiplier = null;
 			
 			if (soundMultiplier > 1)
 			{
