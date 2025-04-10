@@ -58,7 +58,7 @@ jobs:
           haxelib list
         shell: cmd
       - name: rebuild extension-webm
-        run: lime rebuild extension-webm windows
+        run: haxelib run lime rebuild extension-webm windows
         shell: cmd
       - name: Compile
         run: haxelib run lime build windows -release
