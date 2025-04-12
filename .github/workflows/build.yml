@@ -40,10 +40,33 @@ jobs:
         if: inputs.name == 'Linux'
         run: sudo apt install libvlc-dev libvlccore-dev
 
-      - name: Install Libraries
+      - name: Install Libraries (Linux)
+        if: inputs.name == 'Linux'
         run: |
-          haxelib install hmm --quiet
-          haxelib run hmm install --quiet
+          sudo apt-get install libvlc-dev
+          sudo apt-get install libvlccore-dev
+          haxelib setup ~/haxelib
+          haxelib install hxcpp > /dev/null --quiet
+          chmod +x ./setup/unix.sh
+          sh ./setup/unix.sh
+
+
+      - name: Install Libraries (Windows)
+        if: inputs.name == 'Windows'
+        run: |
+          haxelib setup C:/haxelib
+          haxelib install hxcpp > /dev/null --quiet
+          .\"setup/windows.bat"
+
+      - name: Install Libraries (MacOs)
+        if: inputs.name == 'Mac'
+        run: |
+          sudo apt-get install libvlc-dev
+          sudo apt-get install libvlccore-dev
+          haxelib setup ~/haxelib
+          haxelib install hxcpp > /dev/null --quiet
+          chmod +x ./setup/unix.sh
+          sh ./setup/unix.sh
 
       - name: Configure Android
         if: inputs.name == 'Android'
