@@ -57,7 +57,7 @@ jobs:
           .\"setup/windows.bat"
 
       - name: rebuild extension-webm
-        run: haxelib run lime rebuild extension-webm windows
+        run: haxelib run lime rebuild extension-webm ${{ inputs.buildArgs }}
 
       - name: Configure Android
         if: inputs.name == 'Android'
