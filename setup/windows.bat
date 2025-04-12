@@ -19,8 +19,8 @@ haxelib set openfl 9.3.3
 haxelib install hxCodec 2.5.1
 haxelib install hscript
 haxelib install actuate
-haxelib install extension-webm
 haxelib install newgrounds
+haxelib git extension-webm https://github.com/EnigmaEngine/extension-webm
 haxelib git faxe https://github.com/uhrobots/faxe
 haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
 haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
@@ -30,5 +30,7 @@ haxelib git flxanimate https://github.com/Dot-Stuff/flxanimate 768740a56b26aa0c0
 haxelib git linc_luajit https://github.com/superpowers04/linc_luajit 1906c4a96f6bb6df66562b3f24c62f4c5bba14a7
 haxelib git funkin.vis https://github.com/FunkinCrew/funkVis 22b1ce089dd924f15cdc4632397ef3504d464e90
 haxelib git grig.audio https://gitlab.com/haxe-grig/grig.audio.git cbf91e2180fd2e374924fe74844086aab7891666
+haxelib remove thx.core
+haxelib git https://github.com/fponticelli/thx.core master
 echo Finished!
 pause
