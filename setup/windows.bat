@@ -19,8 +19,8 @@ haxelib set openfl 9.3.3
 haxelib install hxCodec 2.5.1
 haxelib install hscript
 haxelib install actuate
-haxelib install extension-webm
 haxelib install newgrounds
+haxelib git extension-webm https://github.com/EnigmaEngine/extension-webm
 haxelib git faxe https://github.com/uhrobots/faxe
 haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
 haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
