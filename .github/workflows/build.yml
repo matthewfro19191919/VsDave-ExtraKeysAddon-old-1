@@ -57,16 +57,6 @@ jobs:
           haxelib setup C:/haxelib
           .\"setup/windows.bat"
 
-      - name: Install Libraries (MacOs)
-        if: inputs.name == 'Mac'
-        run: |
-          sudo apt-get install libvlc-dev
-          sudo apt-get install libvlccore-dev
-          haxelib setup ~/haxelib
-          haxelib install hxcpp --quiet
-          chmod +x ./setup/unix.sh
-          sh ./setup/unix.sh
-
       - name: Configure Android
         if: inputs.name == 'Android'
         run: |
