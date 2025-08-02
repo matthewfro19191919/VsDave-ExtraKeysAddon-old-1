@@ -50,7 +50,6 @@ class HealthIcon extends FlxSprite
 		animation.add('bambi-farmer-beta', [12, 13], 0, false, isPlayer);
 
 		animation.add('bambi-loser', [13, 13], 0, false, isPlayer);
-		animation.add('bambi-unfair-loser', [41, 41], 0, false, isPlayer);
 
 		animation.add('bambi-stupid', [18, 19], 0, false, isPlayer);
 		animation.add('bambi-3d', [20, 21], 0, false, isPlayer);
@@ -67,8 +66,6 @@ class HealthIcon extends FlxSprite
 		animation.add('what-lmao', [18, 19], 0, false, isPlayer);
 
 		animation.add('shaggy', [42, 43], 0, false, isPlayer);
-		
-		animation.add('amogus', [44, 45], 0, false, isPlayer);
 		animation.play(char);
 		if (noAaChars.contains(char))
 		{

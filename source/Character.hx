@@ -251,39 +251,19 @@ class Character extends FlxSprite
 				animation.addByPrefix('singDOWN', 'DaveAngry Sing Note DOWN', 24, false);
 				animation.addByPrefix('singLEFT', 'DaveAngry Sing Note LEFT', 24, false);
 		
-				addOffset('idle');
-				addOffset("singUP", 20, -10);
-				addOffset("singRIGHT", 80, -20);
-				addOffset("singLEFT", 0, -10);
-				addOffset("singDOWN", 0, 10);
-				globaloffset[0] = 150;
-				globaloffset[1] = 450; //this is the y
+				addOffset('idle', -4, 0);
+				addOffset("singUP", -45, -97);
+				addOffset("singRIGHT", -257, 143);
+				addOffset("singLEFT", -5, -6);
+				addOffset("singDOWN", -49, -31);
+				globaloffset[0] = -50;
+				globaloffset[1] = 160; //this is the y
 				setGraphicSize(Std.int(width / furiosityScale));
 				updateHitbox();
 				antialiasing = false;
 		
-				playAnim('idle');
-			case 'amogus':
-				// BAMBI SHITE ANIMATION LOADING CODE
-				tex = Paths.getSparrowAtlas('dave/amogus');
-				frames = tex;
-				animation.addByPrefix('idle', 'DaveAngry idle dance', 24, false);
-				animation.addByPrefix('singUP', 'DaveAngry Sing Note UP', 24, false);
-				animation.addByPrefix('singRIGHT', 'DaveAngry Sing Note RIGHT', 24, false);
-				animation.addByPrefix('singDOWN', 'DaveAngry Sing Note DOWN', 24, false);
-				animation.addByPrefix('singLEFT', 'DaveAngry Sing Note LEFT', 24, false);
-		
-				addOffset('idle');
-				addOffset("singUP", 20, -10);
-				addOffset("singRIGHT", 80, -20);
-				addOffset("singLEFT", 0, -10);
-				addOffset("singDOWN", 0, 10);
-				globaloffset[0] = 150;
-				globaloffset[1] = 450; //this is the y
-				setGraphicSize(Std.int(width / furiosityScale));
-				updateHitbox();
-				antialiasing = false;
-		
+				flipX = true;
+
 				playAnim('idle');
 			case 'bambi-unfair':
 				// BAMBI SHITE ANIMATION LOADING CODE
@@ -816,23 +796,25 @@ class Character extends FlxSprite
 				flipX = true;
 			case 'shaggy':
 				frames = Paths.getSparrowAtlas('shaggy');
-				animation.addByPrefix('danceRight', 'shaggy_idle0', 30, false);
-				animation.addByPrefix('danceLeft', 'shaggy_idle2', 30, false);
-				animation.addByPrefix('singUP', 'shaggy_up', 30, false);
-				animation.addByPrefix('singLEFT', 'shaggy_right', 30, false);
-				animation.addByPrefix('singRIGHT', 'shaggy_left', 30, false);
-				animation.addByPrefix('singDOWN', 'shaggy_down', 30, false);
+				animation.addByPrefix('idle', 'BF idle dance', 30, false);
+				animation.addByPrefix('idle2', 'BF idle dance2', 30, false);
+				animation.addByPrefix('singUP', 'BF NOTE UP0', 30, false);
+				animation.addByPrefix('singLEFT', 'BF NOTE LEFT0', 30, false);
+				animation.addByPrefix('singRIGHT', 'BF NOTE RIGHT0', 30, false);
+				animation.addByPrefix('singDOWN', 'BF NOTE DOWN0', 30, false);
 
-				addOffset('danceRight');
-				addOffset('danceLeft', -28);
-				addOffset("singUP", -39, 27);
-				addOffset("singRIGHT", -55, -114);
-				addOffset("singLEFT", 133, -38);
-				addOffset("singDOWN", 83, -160);
+				addOffset('idle', -5);
+				addOffset('idle2', -5);
+				addOffset("singUP", -29, 27);
+				addOffset("singRIGHT", -38, -7);
+				addOffset("singLEFT", 12, -6);
+				addOffset("singDOWN", -10, -50);
 
-				playAnim('danceRight');
+				playAnim('idle');
 
 				nativelyPlayable = true;
+
+				flipX = true;
 		}
 		dance();
 
@@ -893,7 +875,7 @@ class Character extends FlxSprite
 		{
 			switch (curCharacter)
 			{
-				case 'gf' | 'gf-christmas' | 'gf-pixel' | 'shaggy':
+				case 'gf' | 'gf-christmas' | 'gf-pixel':
 					if (!animation.curAnim.name.startsWith('hair'))
 					{
 						danced = !danced;
@@ -903,6 +885,13 @@ class Character extends FlxSprite
 						else
 							playAnim('danceLeft', true);
 					}
+				case 'shaggy':
+					danced = !danced;
+		
+						if (danced)
+							playAnim('idle2', true);
+						else
+							playAnim('idle', true);
 				default:
 					playAnim('idle', true);
 			}
@@ -924,8 +913,7 @@ class Character extends FlxSprite
 		var daOffset = animOffsets.get(AnimName);
 		if (animOffsets.exists(AnimName))
 		{
-			if (curCharacter == 'shaggy') offset.set(daOffset[0], daOffset[1]);
-			else if (isPlayer)
+			if (isPlayer)
 			{
 				if(!nativelyPlayable)
 				{
