@@ -67,7 +67,6 @@ class TitleState extends MusicBeatState
 		}
 
 		for (song in preloadShaggyVoiceSongs) {
-			FlxG.sound.cache(Paths.voices(song, true));
 		}
 
 		fun = FlxG.random.int(0, 999);
