@@ -22,7 +22,6 @@
 		public static var keyAmmo:Array<Int> = [4, 6, 9];
 		public static var dataJump:Array<Int> = [8, 12, 18];
 		public static var shaggyVoice:Bool = false;
-		public static var susVoice:Bool = false;
 	
 		// You can pretty much ignore everything from here on - your code should go in your states.
 
