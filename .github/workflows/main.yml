@@ -1,34 +1,87 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Main
+name: Pc/Desktop
 
-
-# Controls when the action will run.
+# Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ main, experimental ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, experimental ]
+    branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  Build:
-    name: ${{ matrix.name }}
+  Desktop:
+    runs-on: ${{matrix.os}}
     strategy:
+      fail-fast: false
       matrix:
-        include:
-          - name: Windows
-            os: windows-latest
-            buildArgs: windows
-            artifactName: windowsBuild
-            artifactPath: export\release\windows\bin\*\
-    uses: ./.github/workflows/build.yml
-    with:
-        name: ${{ matrix.name }}
-        os: ${{ matrix.os }}
-        buildArgs: ${{ matrix.buildArgs }}
-        artifactName: ${{ matrix.artifactName }}
-        artifactPath: ${{ matrix.artifactPath }}
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@master
+        with:
+          haxe-version: 4.3.6
+
+      - name: Install libVLC (Linux)
+        if: startsWith(matrix.os, 'ubuntu')
+        run: sudo apt install libvlc-dev libvlccore-dev
+
+      - name: Install Libraries (Windows)
+        if: startsWith(matrix.os, 'windows')
+        run: |
+          haxelib setup C:/haxelib
+          .\"setup/windows.bat"
+
+      - name: Install Libraries (Linux)
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          sudo apt-get install libvlc-dev
+          sudo apt-get install libvlccore-dev
+          haxelib setup ~/haxelib
+          haxelib install hxcpp --quiet
+          chmod +x ./setup/unix.sh
+          sh ./setup/unix.sh
+          
+      - name: Compile (Windows)
+        if: startsWith(matrix.os, 'windows')
+        run: haxelib run lime build windows -D officialBuild
+
+      - name: Compile (Linux)
+        if: startsWith(matrix.os, 'ubuntu')
+        run: haxelib run lime build linux -D officialBuild
+
+      - name: Compile (macOS)
+        if: startsWith(matrix.os, 'macos')
+        run: haxelib run lime build mac -D officialBuild
+
+      - name: Upload Artifact (Windows)
+        if: startsWith(matrix.os, 'windows')
+        uses: actions/upload-artifact@main
+        with:
+          name: windowsBuild
+          path: export\release\windows\bin\*
+          if-no-files-found: error
+
+      - name: Upload Artifact (Linux)
+        if: startsWith(matrix.os, 'ubuntu')
+        uses: actions/upload-artifact@main
+        with:
+          name: linuxBuild
+          path: export/release/linux/bin/*
+          if-no-files-found: error
+
+      - name: Upload Artifact (macOS latest)
+        if: matrix.os == 'macos-latest'
+        uses: actions/upload-artifact@main
+        with:
+          name: macOSBuild-arm64
+          path: export/release/macos/bin/*
+          if-no-files-found: 
