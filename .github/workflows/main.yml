@@ -49,7 +49,27 @@ jobs:
           haxelib install hxcpp --quiet
           chmod +x ./setup/unix.sh
           sh ./setup/unix.sh
-          
+
+      - name: Install Libraries (macOS)
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          haxelib setup ~/haxelib
+          haxelib install hxcpp --quiet
+          chmod +x ./setup/unix.sh
+          sh ./setup/unix.sh
+
+      - name: rebuild extension-webm (Windows)
+        if: startsWith(matrix.os, 'windows')
+        run: haxelib run lime rebuild extension-webm linux
+
+      - name: rebuild extension-webm (Linux)
+        if: startsWith(matrix.os, 'ubuntu')
+        run: haxelib run lime rebuild extension-webm linux
+
+      - name: rebuild extension-webm (macOS)
+        if: startsWith(matrix.os, 'macos')
+        run: haxelib run lime rebuild extension-webm mac
+
       - name: Compile (Windows)
         if: startsWith(matrix.os, 'windows')
         run: haxelib run lime build windows -D officialBuild
