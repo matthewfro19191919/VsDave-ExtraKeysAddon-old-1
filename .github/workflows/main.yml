@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
+        os: [windows-latest]
     steps:
       - name: Checkout
         uses: actions/checkout@main
@@ -30,57 +30,19 @@ jobs:
         with:
           haxe-version: 4.3.6
 
-      - name: Install libVLC (Linux)
-        if: startsWith(matrix.os, 'ubuntu')
-        run: sudo apt install libvlc-dev libvlccore-dev
-
       - name: Install Libraries (Windows)
         if: startsWith(matrix.os, 'windows')
         run: |
           haxelib setup C:/haxelib
           .\"setup/windows.bat"
 
-      - name: Install Libraries (Linux)
-        if: startsWith(matrix.os, 'ubuntu')
-        run: |
-          sudo apt-get install libvlc-dev
-          sudo apt-get install libvlccore-dev
-          haxelib setup ~/haxelib
-          haxelib install hxcpp --quiet
-          chmod +x ./setup/unix.sh
-          sh ./setup/unix.sh
-
-      - name: Install Libraries (macOS)
-        if: startsWith(matrix.os, 'macos')
-        run: |
-          haxelib setup ~/haxelib
-          haxelib install hxcpp --quiet
-          chmod +x ./setup/unix.sh
-          sh ./setup/unix.sh
-
       - name: rebuild extension-webm (Windows)
         if: startsWith(matrix.os, 'windows')
         run: haxelib run lime rebuild extension-webm linux
 
-      - name: rebuild extension-webm (Linux)
-        if: startsWith(matrix.os, 'ubuntu')
-        run: haxelib run lime rebuild extension-webm linux
-
-      - name: rebuild extension-webm (macOS)
-        if: startsWith(matrix.os, 'macos')
-        run: haxelib run lime rebuild extension-webm mac
-
       - name: Compile (Windows)
         if: startsWith(matrix.os, 'windows')
         run: haxelib run lime build windows -D officialBuild
-
-      - name: Compile (Linux)
-        if: startsWith(matrix.os, 'ubuntu')
-        run: haxelib run lime build linux -D officialBuild
-
-      - name: Compile (macOS)
-        if: startsWith(matrix.os, 'macos')
-        run: haxelib run lime build mac -D officialBuild
 
       - name: Upload Artifact (Windows)
         if: startsWith(matrix.os, 'windows')
@@ -89,19 +51,3 @@ jobs:
           name: windowsBuild
           path: export\release\windows\bin\*
           if-no-files-found: error
-
-      - name: Upload Artifact (Linux)
-        if: startsWith(matrix.os, 'ubuntu')
-        uses: actions/upload-artifact@main
-        with:
-          name: linuxBuild
-          path: export/release/linux/bin/*
-          if-no-files-found: error
-
-      - name: Upload Artifact (macOS latest)
-        if: matrix.os == 'macos-latest'
-        uses: actions/upload-artifact@main
-        with:
-          name: macOSBuild-arm64
-          path: export/release/macos/bin/*
-          if-no-files-found: 
